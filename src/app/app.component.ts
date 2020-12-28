@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pending-client';
+  pending: string = '';
+  pendents: string[] = [];
+
+  addPending(pending: string) {
+    console.log(pending);
+    this.pendents.push(pending);
+    this.pending = '';
+
+  }
+
 }
