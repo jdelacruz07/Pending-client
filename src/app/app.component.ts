@@ -14,7 +14,10 @@ export class AppComponent {
     console.log(pending);
     this.pendents.push(pending);
     this.pending = '';
-
   }
 
+  deletePending(i: number) {
+    console.log("index", i);
+    this.pendents.splice(i,1);
+  }
 }

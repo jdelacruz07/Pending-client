@@ -4,6 +4,6 @@
 <button (click)="addPending(pending)">add</button>
 <hr>
 
-<div *ngFor="let item of pendents">
-  {{item}}
+<div *ngFor="let item of pendents; index as i">
+  {{item}}<button (click)="deletePending(i)">delete</button>
 </div>
