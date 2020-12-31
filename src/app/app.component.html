@@ -1,9 +1,9 @@
 
-<h1>Hello desde pending</h1>
+<h1>Pending</h1>
 <input type="text" [(ngModel)]="pending" >
 <button (click)="addPending(pending)">add</button>
 <hr>
 
-<div *ngFor="let item of pendents; index as i">
-  {{item}}<button (click)="deletePending(i)">delete</button>
+<div class="listOfPending" *ngFor="let item of pendingList; index as i">
+  {{item.pending}}<button (click)="deletePending(i)">delete</button>
 </div>

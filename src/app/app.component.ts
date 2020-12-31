@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Pending, PendingService } from './pending.service'
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,38 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'pending-client';
   pending: string = '';
-  pendents: string[] = [];
+  pendingList: any;
+  newPending: Pending = {id:"", pending:""};
 
-  addPending(pending: string) {
-    console.log(pending);
-    this.pendents.push(pending);
-    this.pending = '';
+  constructor(private pendingApi: PendingService) {
+  
   }
 
+  ngOnInit() {
+    this.getPending();
+  }
+
+  addPending(pending: String) {
+    console.log("pending ", pending);
+    this.newPending.pending = pending;
+    this.pendingApi.addPending(this.newPending).subscribe(x => {
+      this.pending = '';
+      this.getPending();
+    });
+  }
+  
   deletePending(i: number) {
     console.log("index", i);
-    this.pendents.splice(i,1);
+    this.pendingList.splice(i,1);
   }
+  
+  getPending() {
+    this.pendingApi.getPending().subscribe(x => {
+    console.log(x)
+    this.pendingList = x;
+    });
+
+  }
+
+
 }
