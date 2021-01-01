@@ -5,5 +5,16 @@
 <hr>
 
 <div class="listOfPending" *ngFor="let item of pendingList; index as i">
-  {{item.pending}}<button (click)="deletePending(i)">delete</button>
+  <div *ngIf="indexPending !== i; else edit">
+    {{item.pending}}
+  </div>
+  <ng-template #edit>
+    <input type="text" [(ngModel)]="pendingEdit" >
+    <button (click)="updatePending(item, pendingEdit)">update</button>
+  </ng-template>
+  <div>
+    <button (click)="editPending(item, i)">edit</button>
+    <button (click)="deletePending(item)">delete</button>
+  </div>
 </div>
+
