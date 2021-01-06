@@ -1,6 +1,5 @@
-
 <h1>Pending</h1>
-<input type="text" [(ngModel)]="pending" >
+<input type="text" [(ngModel)]="pending">
 <button (click)="addPending(pending)">add</button>
 <hr>
 
@@ -9,7 +8,7 @@
     {{item.pending}}
   </div>
   <ng-template #edit>
-    <input type="text" [(ngModel)]="pendingEdit" >
+    <input type="text" [(ngModel)]="pendingEdit">
     <button (click)="updatePending(item, pendingEdit)">update</button>
   </ng-template>
   <div>
@@ -18,3 +17,5 @@
   </div>
 </div>
 
+<hr>
+<input type="file" name="sendFile" (change)="addFile($event)" [(ngModel)]="sendFile">
