@@ -13,6 +13,7 @@ export class AppComponent {
   pendingList: any;
   indexPending: number = -1;
   sendFile: String = '';
+  history: Pending[] =  [];
 
   constructor(private pendingService: PendingService) {
 
@@ -20,6 +21,10 @@ export class AppComponent {
 
   ngOnInit() {
     this.getPending();
+  }
+
+  addHistory(pending:Pending) {
+    this.history.push(pending);
   }
 
   addFile(event: any) {
@@ -57,10 +62,11 @@ export class AppComponent {
       this.getPending();
     });
   }
-
+  
   deletePending(item: Pending) {
     this.pendingService.deletePending(item).subscribe(x => {
       this.getPending();
+      this.addHistory(item)
     });
   }
 

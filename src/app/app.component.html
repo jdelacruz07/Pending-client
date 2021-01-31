@@ -17,5 +17,10 @@
   </div>
 </div>
 
+<h2>Historico</h2>
+<div *ngFor="let pending of history">
+  <div>{{pending.pending}}</div>
+</div>
+
 <hr>
 <input type="file" name="sendFile" (change)="addFile($event)" [(ngModel)]="sendFile">
