@@ -1,0 +1,31 @@
+<div class="super">
+  <h2>Pendiente nuevo:</h2>
+  <form class="container" [formGroup]="checkoutForm" (submit)="add(checkoutForm.value)">
+    <div class="pending">
+      <label for="topic">Asunto:</label>
+      <input id="topic" type="text" formControlName="topic" />
+    </div>
+    <!-- <div>
+      <label for="dateSelected">Fecha</label>
+      <input id="dateSelected" type="date" formControlName="dateSelected">
+    </div> -->
+    <button class="button" type="submit">Agregar</button>
+  </form>
+
+  <h2>Pendientes:</h2>
+  <ul>
+    <li *ngFor="let pending of pendings; let indice = index">
+      <div class="container">
+        <div class="pendings">
+          <a  routerLink="/detail/{{ pending.id }}">
+            <span>{{ pending.topic }} </span>
+          </a>
+          <span>{{ pending.dateSelected | date : "d MMMM, yyyy" }} </span>
+        </div>
+        <button class="button" type="submit" (click)="delete(pending)">
+          Eliminar
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

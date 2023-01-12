@@ -1,0 +1,30 @@
+<h2 *ngIf="isUpdate">Actualizar pendiente:</h2>
+<h2 *ngIf="!isUpdate">Detalles:</h2>
+
+<div class="super">
+  <div class="container">
+    <span class="topic">Asunto</span>
+    <span class="topic" *ngIf="!isUpdate">Ultima actualización</span>
+  </div>
+
+  <div *ngIf="isUpdate; then edit; else content"></div>
+  <ng-template #content>
+    <div class="template-content">
+      <span class="content">{{pending.topic}} </span>
+      <span class="content">
+        {{ pending.dateSelected | date : "d MMMM, yyyy" }}</span>
+      <button (click)="isUpdate ? (isUpdate = false) : (isUpdate = true)">
+        Editar
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #edit>
+    <div class="template-edit">
+      <input class="edit-input" #update type="text" [value]="pending.topic" />
+      <button type="submit" (click)="updatePending(update.value)">
+        Guardar
+      </button>
+    </div>
+  </ng-template>
+</div>

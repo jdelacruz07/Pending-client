@@ -1,0 +1,49 @@
+.super {
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 90%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 5px;
+    padding: 5px;
+    justify-content: space-evenly;
+}
+
+h1,h2 {
+    margin: 5px;
+    padding: 5px;
+}
+
+.pending,
+.pendings {
+    display: flex;
+    flex: 0 1 70%;
+    justify-content: space-between;
+}
+
+.button {
+    flex: 0 1 10%;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    flex: 1 1 auto;
+}
+
+label {
+    flex: 0 1 auto;
+}
