@@ -17,14 +17,15 @@
     <li *ngFor="let pending of pendings; let indice = index">
       <div class="container">
         <div class="pendings">
+          <div>{{indice + 1 + ")"}}</div>
           <a  routerLink="/detail/{{ pending.id }}">
             <span>{{ pending.topic }} </span>
           </a>
           <span>{{ pending.dateSelected | date : "d MMMM, yyyy" }} </span>
         </div>
-        <button class="button" type="submit" (click)="delete(pending)">
+        <!-- <button class="button" type="submit" (click)="delete(pending)">
           Eliminar
-        </button>
+        </button> -->
       </div>
     </li>
   </ul>

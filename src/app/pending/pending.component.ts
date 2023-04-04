@@ -9,7 +9,7 @@ import { PendingService } from '../pending.service';
   styleUrls: ['./pending.component.css'],
 })
 export class PendingComponent implements OnInit {
-  pendings: any;
+  pendings: Pending[] = [];
   checkoutForm;
 
   constructor(
@@ -27,20 +27,21 @@ export class PendingComponent implements OnInit {
   }
 
   getPendings() {
-    this.pendingService.getPendings().subscribe(pendings => this.pendings = pendings);
+    this.pendingService.getPendings().subscribe(pendings => {
+      this.pendings = pendings
+      console.log(`Total de pendiente ${this.pendings.length}`);
+      // this.pendings.forEach( x => console.log(x))
+
+    });
   }
 
-  add(pending: any) {
-    pending.dateSelected = new Date();
-    if (pending.topic != '' && pending.topic != null) {
-      // console.log('Pendiente nuevo', pending);
-      this.pendingService.add(pending).subscribe(() => this.getPendings());
+  add(pendingForm: any) {
+    if (pendingForm.topic != '' && pendingForm.topic != null) {
+      let newPending: any = { topic: pendingForm.topic, dateSelected: new Date() }
+      this.pendingService.add(newPending).subscribe(() => this.getPendings());
       this.checkoutForm.reset();
     }
   }
 
-  delete(pending: Pending) {
-    this.pendingService.delete(pending.id).subscribe(() => this.getPendings());
-    // console.log('Elemento a eliminar', pending);
-  }
+
 }

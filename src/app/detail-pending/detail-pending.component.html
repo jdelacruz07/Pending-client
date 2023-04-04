@@ -2,13 +2,14 @@
 <h2 *ngIf="!isUpdate">Detalles:</h2>
 
 <div class="super">
-  <div class="container">
-    <span class="topic">Asunto</span>
-    <span class="topic" *ngIf="!isUpdate">Ultima actualización</span>
-  </div>
 
   <div *ngIf="isUpdate; then edit; else content"></div>
+
   <ng-template #content>
+    <div class="container">
+      <span class="topic">Asunto</span>
+      <span class="topic" *ngIf="!isUpdate">Ultima actualización</span>
+    </div>
     <div class="template-content">
       <span class="content">{{pending.topic}} </span>
       <span class="content">
@@ -16,13 +17,22 @@
       <button (click)="isUpdate ? (isUpdate = false) : (isUpdate = true)">
         Editar
       </button>
+      <button class="button" type="submit" (click)="delete(pending)">
+        Eliminar
+      </button>
+    </div>
+    <div class="history" *ngIf="isHistory">
+      <span>History </span>
+      <div *ngFor="let pending of pendingHistory">
+        <li>{{pending.topic}}</li>
+      </div>
     </div>
   </ng-template>
 
   <ng-template #edit>
     <div class="template-edit">
-      <input class="edit-input" #update type="text" [value]="pending.topic" />
-      <button type="submit" (click)="updatePending(update.value)">
+      <input class="edit-input" #updateTopic type="text" [value]="pending.topic" />
+      <button type="submit" (click)="updatePending(updateTopic.value)">
         Guardar
       </button>
     </div>

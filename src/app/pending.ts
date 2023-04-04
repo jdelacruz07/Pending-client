@@ -1,5 +1,6 @@
 export interface Pending {
-  id: ""
-  topic: ""
+  id:  any
+  topic: string
   dateSelected: Date
+  reference: string
 }

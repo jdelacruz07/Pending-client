@@ -9,8 +9,14 @@ import { PendingService } from '../pending.service';
   styleUrls: ['./detail-pending.component.css'],
 })
 export class DetailPendingComponent implements OnInit {
-  pending: Pending = { id: "", topic: "", dateSelected: new Date()}; 
+  pending: Pending = {
+    id: "", topic: "", dateSelected: new Date(), reference: ''
+  };
+  pendingHistory: Pending[] = [{
+    id: "", topic: "", dateSelected: new Date(), reference: ''
+  }];
   isUpdate: boolean = false;
+  isHistory: boolean = false;
 
   constructor(
     private activatesRoute: ActivatedRoute,
@@ -22,19 +28,45 @@ export class DetailPendingComponent implements OnInit {
     this.getPending();
   }
 
-  getPending() {
-    let id = this.activatesRoute.snapshot.params['id'];
-    // console.log('Este es el id', id);
-    this.pendingService.getPending(id).subscribe(pending => this.pending = pending);
+  getPendingHistory(id: String) {
+    this.pendingService.getPendingHistory(id).subscribe(history => {
+      // console.log("Este es el historial ", history)
+      let pendingHistory: any = history
+      this.pendingHistory = pendingHistory;
+      if (this.pendingHistory.length > 0) {
+        this.isHistory = true;
+      }
+    });
   }
 
-  updatePending(newTopic: any) {
-    // console.log('Editar el Asunto :', updateTopic);
-    this.pending.topic = newTopic;
+  getPending() {
+    let id: string = this.activatesRoute.snapshot.params['id'];
+    this.pendingService.getPending(id).subscribe(pending => {
+      this.pending = pending
+      this.getPendingHistory(pending.id);
+    });
+  }
+
+  updatePending(updateTopic: any) {
+    let pendingHistory: Pending = { id: null, topic: this.pending.topic, dateSelected: new Date(), reference: this.pending.id }
+    this.pending.topic = updateTopic;
     this.pending.dateSelected = new Date();
-    this.pendingService.update(this.pending).subscribe()
+    this.pending.reference = "";
+    this.pendingService.update(this.pending).subscribe(() => {
+      this.addToHistory(pendingHistory)
+    })
     this.isUpdate ? (this.isUpdate = false) : (this.isUpdate = true);
     this.router.navigate(['',]);
+  }
+
+  addToHistory(pendingHistory: Pending) {
+    this.pendingService.add(pendingHistory).subscribe(() => console.log(`Se agrega pendiente con la referencia ${pendingHistory.reference}`));
+  }
+
+  delete(pending: Pending) {
+    this.pendingService.delete(pending.id).subscribe(() => this.router.navigate(['',]));
+    // pending.id = " "
+    // this.pendingService.delete(pending.id).subscribe(() => this.router.navigate(['',]));
 
   }
 }
