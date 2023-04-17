@@ -11,13 +11,13 @@
       <span class="topic" *ngIf="!isUpdate">Ultima actualización</span>
     </div>
     <div class="template-content">
-      <span class="content">{{pending.topic}} </span>
+      <span class="content">{{ pending.topic }} </span>
       <span class="content">
         {{ pending.dateSelected | date : "d MMMM, yyyy" }}</span>
       <button (click)="isUpdate ? (isUpdate = false) : (isUpdate = true)">
         Editar
       </button>
-      <button class="button" type="submit" (click)="delete(pending)">
+      <button class="button" type="submit" (click)="deletePending(pending)">
         Eliminar
       </button>
     </div>

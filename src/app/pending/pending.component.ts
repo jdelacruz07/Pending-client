@@ -10,45 +10,39 @@ import { AppService } from '../app.service';
   styleUrls: ['./pending.component.css'],
 })
 export class PendingComponent implements OnInit {
-  [x: string]: any;
   pendings: Pending[] = [];
   checkoutForm;
 
-  constructor(
-    formBuilder: FormBuilder,
-    private pendingService: PendingService,
-    private app: AppService
+  constructor(formBuilder: FormBuilder, private pendingService: PendingService, private appService: AppService
   ) {
-    this.checkoutForm = formBuilder.group({
-      topic: '',
-      dateSelected: Date,
-    });
+    this.checkoutForm = formBuilder.group({ topic: '', dateSelected: Date, });
   }
+
 
   ngOnInit(): void {
     this.getPendings();
   }
 
+
   getPendings() {
     this.pendingService.getPendings().subscribe(pendings => {
-      let newPendings:any = pendings
+      let newPendings: any = pendings;
       this.pendings = newPendings;
       console.log(`Total de pendiente ${this.pendings.length}`);
     });
   }
 
+
   add(pendingForm: any) {
-    let username = this.app.username;
+    let username: any = this.appService.username;
     console.log("Este es el usuario ", username)
     if (pendingForm.topic != '' && pendingForm.topic != null) {
-      let newPending: any = { username: username, topic: pendingForm.topic, dateSelected: new Date() }
-      console.log("Pendiente a insertar ", newPending)
+      let newPending: Pending = { id: null, username: username, topic: pendingForm.topic, dateSelected: new Date(), reference: null }
       this.pendingService.add(newPending).subscribe(() => {
         this.getPendings()
         this.checkoutForm.reset();
       });
     }
   }
-
 
 }

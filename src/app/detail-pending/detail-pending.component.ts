@@ -10,29 +10,17 @@ import { PendingService } from '../pending.service';
 })
 export class DetailPendingComponent implements OnInit {
   pending: Pending = {
-    id: "", username: "", topic: "", dateSelected: new Date(), reference: null
+    id: null, username: '', topic: '', dateSelected: new Date(), reference: null
   };
-  pendingHistory: Pending[] = [{
-    id: "", username: "", topic: "", dateSelected: new Date(), reference: null
-  }];
+  pendingHistory: Pending[] = [];
   isUpdate: boolean = false;
   isHistory: boolean = false;
 
   constructor(private activatesRoute: ActivatedRoute, private pendingService: PendingService, private router: Router) { }
 
+
   ngOnInit() {
     this.getPending();
-  }
-
-
-  getPendingHistory(id: String) {
-    this.pendingService.getPendingHistory(id).subscribe(history => {
-      let pendingHistory: any = history
-      this.pendingHistory = pendingHistory;
-      if (this.pendingHistory.length > 0) {
-        this.isHistory = true;
-      }
-    });
   }
 
 
@@ -41,6 +29,17 @@ export class DetailPendingComponent implements OnInit {
     this.pendingService.getPending(id).subscribe(pending => {
       this.pending = pending
       this.getPendingHistory(pending.id);
+    });
+  }
+
+
+  getPendingHistory(id: string | null) {
+    this.pendingService.getPendingHistory(id).subscribe(history => {
+      let pendingHistory: any = history
+      this.pendingHistory = pendingHistory;
+      if (this.pendingHistory.length > 0) {
+        this.isHistory = true;
+      }
     });
   }
 
@@ -55,7 +54,7 @@ export class DetailPendingComponent implements OnInit {
   }
 
 
-  delete(pending: Pending) {
+  deletePending(pending: Pending) {
     this.pendingService.delete(pending.id).subscribe(() => this.router.navigate(['',]));
   }
 

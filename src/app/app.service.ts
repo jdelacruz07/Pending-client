@@ -7,19 +7,19 @@ import { Injectable } from '@angular/core';
 export class AppService {
     authenticated = false;
     headers: any;
-    username = "";
+    username: string | undefined;
 
     constructor(private http: HttpClient) {
     }
 
-    authenticate(credentials: { username: any; password: any; } | undefined) {
-        console.log("Estas en el servicio ")
+
+    authenticate(credentials: { username: string; password: string; } | undefined) {
         this.username = credentials?.username;
         this.headers = new HttpHeaders(credentials ? {
             authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-        } : {});
+        } : {})
 
-        return this.http.get('http://localhost:8181/security/user', { headers: this.headers });
-
+        return this.http.get('http://localhost:8181/security/user');
     }
+
 }

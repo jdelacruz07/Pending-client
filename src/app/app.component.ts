@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from './app.service';
 
@@ -8,15 +8,24 @@ import { AppService } from './app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+
+export class AppComponent implements OnInit {
   title = "Probando App "
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.app.authenticate(undefined);
+
+  constructor(private appService: AppService, private http: HttpClient, private router: Router) {
   }
+
+
+  ngOnInit(): void {
+    this.appService.authenticate(undefined).subscribe(response => console.log("Autenticar " + response));
+  }
+
+
   logout() {
     this.http.post('logout', {}).subscribe(() => {
-      this.app.authenticated = false;
+      this.appService.authenticated = false;
       this.router.navigateByUrl('/login');
     });
   }
+
 }

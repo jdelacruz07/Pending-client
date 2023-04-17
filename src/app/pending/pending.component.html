@@ -18,7 +18,7 @@
       <div class="container">
         <div class="pendings">
           <div>{{indice + 1 + ")"}}</div>
-          <a  routerLink="/detail/{{ pending.id }}">
+          <a routerLink="/detail/{{ pending.id }}">
             <span>{{ pending.topic }} </span>
           </a>
           <span>{{ pending.dateSelected | date : "d MMMM, yyyy" }} </span>

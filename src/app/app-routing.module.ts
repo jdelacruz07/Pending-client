@@ -6,8 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-  { path: 'login', component: LoginComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'pending', component: PendingComponent },
   { path: 'detail/:id', component: DetailPendingComponent },
   { path: '', redirectTo: '/pending', pathMatch: 'full' },
@@ -18,4 +18,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

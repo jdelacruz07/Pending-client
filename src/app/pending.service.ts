@@ -10,37 +10,43 @@ import { AppService } from './app.service';
 })
 export class PendingService {
 
-  pendingsUrl = 'http://localhost:8181/api/pending';  // URL to web api
+  pendingsUrl = 'http://localhost:8181/api/pending';
+
 
   constructor(private http: HttpClient, private app: AppService) { }
 
-  getPendingHistory(id: String): Observable<Pending> {
+
+  getPendingHistory(id: string | null): Observable<Pending> {
     let url = `${this.pendingsUrl}/history/${id}`
-    return this.http.get<Pending>(url, { headers: this.app.headers })
+    return this.http.get<Pending>(url)
   }
+
 
 
   getPendings() {
-    return this.http.get(this.pendingsUrl, { headers: this.app.headers })
+    return this.http.get(this.pendingsUrl)
   }
 
-  getPending(id: any): Observable<Pending> {
+
+  getPending(id: string): Observable<Pending> {
     let url = `${this.pendingsUrl}/${id}`
-    return this.http.get<Pending>(url, { headers: this.app.headers })
+    return this.http.get<Pending>(url)
   }
+
 
   add(pending: Pending): Observable<any> {
-    return this.http.post(this.pendingsUrl, pending, { headers: this.app.headers })
+    return this.http.post(this.pendingsUrl, pending)
   }
+
 
   update(pending: Pending): Observable<any> {
-    return this.http.put<Pending>(this.pendingsUrl, pending, { headers: this.app.headers })
+    return this.http.put<Pending>(this.pendingsUrl, pending)
   }
 
-  delete(id: String): Observable<any> {
+
+  delete(id: string | null): Observable<any> {
     let url = `${this.pendingsUrl}/${id}`
-    return this.http.delete(url, { headers: this.app.headers })
+    return this.http.delete(url)
   }
-
 
 }

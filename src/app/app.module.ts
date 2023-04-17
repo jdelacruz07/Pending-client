@@ -35,4 +35,5 @@ import { XhrInterceptor } from './xhr.interceptor';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
