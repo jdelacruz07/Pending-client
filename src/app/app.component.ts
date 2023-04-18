@@ -17,12 +17,13 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.appService.authenticate(undefined).subscribe(response => console.log("Autenticar " + response));
+    this.appService.authenticate(undefined).subscribe(response => { console.log("Autenticar " + response) }, error => console.log(error));
   }
 
 
   logout() {
     this.http.post('logout', {}).subscribe(() => {
+      console.log("Entras al logout ")
       this.appService.authenticated = false;
       this.router.navigateByUrl('/login');
     });

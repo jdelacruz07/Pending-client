@@ -9,16 +9,15 @@ import {
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
-  header = this.app.headers;
+  header = this.appService.headers;
 
-  constructor(private app: AppService) {
-
+  constructor(private appService: AppService) {
   }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const xhr = req.clone({
-      headers: this.app.headers,
+      headers: this.appService.headers,
       setHeaders: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     return next.handle(xhr);

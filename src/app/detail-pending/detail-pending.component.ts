@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pending } from '../pending';
 import { PendingService } from '../pending.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-detail-pending',
@@ -15,8 +16,10 @@ export class DetailPendingComponent implements OnInit {
   pendingHistory: Pending[] = [];
   isUpdate: boolean = false;
   isHistory: boolean = false;
+  checkoutForm: any;
 
-  constructor(private activatesRoute: ActivatedRoute, private pendingService: PendingService, private router: Router) { }
+  constructor(private activatesRoute: ActivatedRoute, private pendingService: PendingService, private router: Router, private formBuilder: FormBuilder) {
+  }
 
 
   ngOnInit() {
@@ -29,7 +32,8 @@ export class DetailPendingComponent implements OnInit {
     this.pendingService.getPending(id).subscribe(pending => {
       this.pending = pending
       this.getPendingHistory(pending.id);
-    });
+      this.checkoutForm = this.formBuilder.group({ topic: this.pending.topic, dateSelected: new Date() });
+    }, error => console.log(error));
   }
 
 
@@ -40,22 +44,29 @@ export class DetailPendingComponent implements OnInit {
       if (this.pendingHistory.length > 0) {
         this.isHistory = true;
       }
-    });
+    }, error => console.log(error));
   }
 
 
-  updatePending(updateTopic: any) {
-    this.pending.topic = updateTopic;
-    this.pending.dateSelected = new Date();
-    this.pendingService.update(this.pending).subscribe(() => {
-      this.isUpdate ? (this.isUpdate = false) : (this.isUpdate = true);
+  updatePending(updateForm: any) {
+    if (this.pending.topic == updateForm.topic) {
       this.router.navigate(['',]);
-    })
+    } else {
+      this.pending.topic = updateForm.topic;
+      this.pending.dateSelected = new Date();
+      this.pendingService.updatePending(this.pending).subscribe(() => {
+        this.isUpdate ? (this.isUpdate = false) : (this.isUpdate = true);
+        this.router.navigate(['',]);
+      }, error => console.log(error))
+    }
+
   }
 
 
   deletePending(pending: Pending) {
-    this.pendingService.delete(pending.id).subscribe(() => this.router.navigate(['',]));
+    this.pendingService.deletePending(pending.id).subscribe(() => {
+      this.router.navigate(['',])
+    }, error => console.log(error));
   }
 
 }

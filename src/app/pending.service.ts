@@ -9,18 +9,15 @@ import { AppService } from './app.service';
   providedIn: 'root'
 })
 export class PendingService {
-
   pendingsUrl = 'http://localhost:8181/api/pending';
 
-
-  constructor(private http: HttpClient, private app: AppService) { }
+  constructor(private http: HttpClient) { }
 
 
   getPendingHistory(id: string | null): Observable<Pending> {
     let url = `${this.pendingsUrl}/history/${id}`
     return this.http.get<Pending>(url)
   }
-
 
 
   getPendings() {
@@ -34,17 +31,17 @@ export class PendingService {
   }
 
 
-  add(pending: Pending): Observable<any> {
+  addPending(pending: Pending): Observable<any> {
     return this.http.post(this.pendingsUrl, pending)
   }
 
 
-  update(pending: Pending): Observable<any> {
+  updatePending(pending: Pending): Observable<any> {
     return this.http.put<Pending>(this.pendingsUrl, pending)
   }
 
 
-  delete(id: string | null): Observable<any> {
+  deletePending(id: string | null): Observable<any> {
     let url = `${this.pendingsUrl}/${id}`
     return this.http.delete(url)
   }

@@ -9,22 +9,25 @@ import { AppService } from '../app.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
   credentials = { username: '', password: '' };
+  error: any = false;
 
-  constructor(private appService: AppService, private http: HttpClient, private router: Router) {
+  constructor(private appService: AppService, private router: Router) {
   }
 
 
   login() {
     this.appService.authenticate(this.credentials).subscribe((response: any) => {
-      console.log("Esta es la respuesta al servicio ", response)
+      console.log("Respuesta a la autheticacion ", response)
       if (response.principal.username) {
         this.appService.authenticated = true;
       } else {
         this.appService.authenticated = false;
       }
-      this.router.navigateByUrl('/pending');
+      this.router.navigateByUrl('/');
+    }, error => {
+      console.log(error)
+      this.error = true
     });
   }
 

@@ -30,11 +30,12 @@
   </ng-template>
 
   <ng-template #edit>
-    <div class="template-edit">
-      <input class="edit-input" #updateTopic type="text" [value]="pending.topic" />
-      <button type="submit" (click)="updatePending(updateTopic.value)">
+    <form class="template-edit" [formGroup]="checkoutForm" (submit)="updatePending(checkoutForm.value)">
+      <label for="topic">Asunto:</label>
+      <input class="edit-input" type="text" formControlName="topic" />
+      <button type="submit">
         Guardar
       </button>
-    </div>
+    </form>
   </ng-template>
 </div>

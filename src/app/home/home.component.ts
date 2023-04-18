@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.http.get('http://localhost:8181/security/resource', { headers: this.appService.headers }).subscribe(data => {
       this.greeting = data
-    })
+    }, error => console.log(error)
+    )
   }
 
 
