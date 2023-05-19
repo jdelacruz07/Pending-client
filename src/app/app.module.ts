@@ -12,6 +12,13 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { XhrInterceptor } from './xhr.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 
 @NgModule({
@@ -27,8 +34,12 @@ import { XhrInterceptor } from './xhr.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
 
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
     // { provide: LocationStrategy, useClass: HashLocationStrategy }
