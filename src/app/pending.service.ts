@@ -9,7 +9,7 @@ import { AppService } from './app.service';
   providedIn: 'root'
 })
 export class PendingService {
-  pendingsUrl = 'http://localhost:8181/api/pending';
+  pendingsUrl = 'http://localhost:8080/api/pending';
 
   constructor(private http: HttpClient) { }
 

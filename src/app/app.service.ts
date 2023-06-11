@@ -19,7 +19,7 @@ export class AppService {
             authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
         } : {})
 
-        return this.http.get('http://localhost:8181/security/user');
+        return this.http.get('http://localhost:8080/security/user');
     }
 
 }
