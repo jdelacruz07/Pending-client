@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class PendingComponent implements OnInit {
   pendings: Pending[] = [];
   checkoutForm: any;
+  displayedColumns: string[] = ['position', 'pending', 'last updated'];
 
   constructor(private router: Router, private formBuilder: FormBuilder, private pendingService: PendingService, private appService: AppService) {
   }

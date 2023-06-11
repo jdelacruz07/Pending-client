@@ -1,0 +1,30 @@
+.example-fields {
+  flex: auto;
+  flex-wrap: nowrap;
+}
+
+.container {
+  max-width: 30%;
+  margin: auto;
+}
+
+.start-login {
+  text-align: center;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.login-button {
+  width: 100%;
+  background-color: whitesmoke;
+}

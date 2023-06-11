@@ -1,32 +1,11 @@
-.super {
-    max-width: 85%;
-    margin: 0 auto;
-}
-
-.container {
-    max-width: 90%;
+/* :host {
     display: flex;
-    flex-wrap: nowrap;
-    margin: 5px;
-    padding: 5px;
-    justify-content: space-evenly;
-}
+    flex-direction: column;
+    align-items: flex-start;
+  } */
 
-h1,h2 {
-    margin: 5px;
-    padding: 5px;
-}
-
-.pending,
-.pendings {
-    display: flex;
-    flex: 0 1 70%;
-    justify-content: space-between;
-}
-
-.button {
-    flex: 0 1 10%;
-    cursor: pointer;
+h1,
+h2 {
     margin: 5px;
     padding: 5px;
 }
@@ -40,10 +19,32 @@ li {
     list-style: none;
 }
 
-input {
+.super {
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+.example-form {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.example-full-width {
     flex: 1 1 auto;
 }
 
-label {
+.pending-button {
     flex: 0 1 auto;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
 }

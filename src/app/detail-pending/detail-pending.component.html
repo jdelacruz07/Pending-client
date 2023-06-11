@@ -1,28 +1,40 @@
-<h2 *ngIf="isUpdate">Actualizar pendiente:</h2>
-<h2 *ngIf="!isUpdate">Detalles:</h2>
-
-<div class="super">
+<div class="container">
+  <h2 *ngIf="isUpdate">Actualizar pendiente:</h2>
+  <h2 *ngIf="!isUpdate">Detalles:</h2>
 
   <div *ngIf="isUpdate; then edit; else content"></div>
 
   <ng-template #content>
-    <div class="container">
-      <span class="topic">Asunto</span>
-      <span class="topic" *ngIf="!isUpdate">Ultima actualización</span>
-    </div>
-    <div class="template-content">
-      <span class="content">{{ pending.topic }} </span>
-      <span class="content">
-        {{ pending.dateSelected | date : "d MMMM, yyyy" }}</span>
-      <button (click)="isUpdate ? (isUpdate = false) : (isUpdate = true)">
-        Editar
-      </button>
-      <button class="button" type="submit" (click)="deletePending(pending)">
-        Eliminar
-      </button>
-    </div>
+    <table class="example-full-width" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="topic">
+        <th mat-header-cell *matHeaderCellDef> Pendiente </th>
+        <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateSelected">
+        <th mat-header-cell *matHeaderCellDef> Ultima modificación</th>
+        <td mat-cell *matCellDef="let element"> {{element.dateSelected | date : "d MMMM, yyyy" }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Acción </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-stroked-button color="primary" (click)="isUpdate ? (isUpdate = false) : (isUpdate = true)">
+            Editar
+          </button>
+          <button mat-stroked-button color="warn" type="submit" (click)="deletePending(pending)">
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
     <div class="history" *ngIf="isHistory">
-      <span>History </span>
+      <h2>Historial </h2>
       <div *ngFor="let pending of pendingHistory">
         <li>{{pending.topic}}</li>
       </div>
@@ -30,12 +42,15 @@
   </ng-template>
 
   <ng-template #edit>
-    <form class="template-edit" [formGroup]="checkoutForm" (submit)="updatePending(checkoutForm.value)">
-      <label for="topic">Asunto:</label>
-      <input class="edit-input" type="text" formControlName="topic" />
-      <button type="submit">
-        Guardar
+    <form class="update-pending-form" [formGroup]="checkoutForm" (submit)="updatePending(checkoutForm.value)">
+      <mat-form-field class="example-full-width">
+        <mat-label for="topic">Asunto:</mat-label>
+        <input matInput type="text" formControlName="topic" />
+      </mat-form-field>
+      <button mat-stroked-button color="primary" type="submit">
+        Actualizar
       </button>
     </form>
   </ng-template>
+
 </div>

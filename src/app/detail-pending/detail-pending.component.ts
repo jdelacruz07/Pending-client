@@ -17,6 +17,8 @@ export class DetailPendingComponent implements OnInit {
   isUpdate: boolean = false;
   isHistory: boolean = false;
   checkoutForm: any;
+  displayedColumns = ['topic', 'dateSelected', 'action']
+  dataSource: Pending[] = [];
 
   constructor(private activatesRoute: ActivatedRoute, private pendingService: PendingService, private router: Router, private formBuilder: FormBuilder) {
   }
@@ -31,6 +33,9 @@ export class DetailPendingComponent implements OnInit {
     let id: string = this.activatesRoute.snapshot.params['id'];
     this.pendingService.getPending(id).subscribe(pending => {
       this.pending = pending
+      let pendingArray: Pending[] = [];
+      pendingArray.push(this.pending);
+      this.dataSource = pendingArray;
       this.getPendingHistory(pending.id);
       this.checkoutForm = this.formBuilder.group({ topic: this.pending.topic, dateSelected: new Date() });
     }, error => console.log(error));

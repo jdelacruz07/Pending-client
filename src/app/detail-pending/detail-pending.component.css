@@ -1,33 +1,18 @@
-.super {
+.container {
   max-width: 85%;
   margin: auto;
 }
 
-.container,
-.template-content,
-.template-edit {
+.example-full-width {
+  width: 100%;
+}
+
+.history {
+  margin-top: 25px;
+}
+
+.update-pending-form {
   display: flex;
   flex-wrap: nowrap;
-}
-
-.topic {
-  flex: 0 1 45%;
-}
-
-.content,
-.edit {
-  flex: 0 1 45%;
-  padding: 5px;
-  margin: 5px;
-}
-
-.edit-input {
-  flex: 1 1 auto;
-  padding: 5px;
-  margin: 5px;
-}
-
-
-button {
-  flex: 0 1 10%;
+  align-items: center;
 }

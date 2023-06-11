@@ -1,32 +1,44 @@
 <div class="super">
   <h2>Pendiente nuevo:</h2>
-  <form class="container" [formGroup]="checkoutForm" (submit)="add(checkoutForm.value)">
-    <div class="pending">
-      <label for="topic">Asunto:</label>
-      <input id="topic" type="text" formControlName="topic" />
-    </div>
+  <form class="example-form" [formGroup]="checkoutForm" (submit)="add(checkoutForm.value)">
+    <mat-form-field class="example-full-width">
+      <mat-label for="topic">Pendiente</mat-label>
+      <input matInput id="topic" type="text" formControlName="topic" />
+    </mat-form-field>
+
+    <button mat-stroked-button color="primary" class="pending-button" type="submit">Agregar</button>
     <!-- <div>
       <label for="dateSelected">Fecha</label>
       <input id="dateSelected" type="date" formControlName="dateSelected">
     </div> -->
-    <button class="button" type="submit">Agregar</button>
   </form>
 
   <h2>Pendientes:</h2>
-  <ul>
-    <li *ngFor="let pending of pendings; let indice = index">
-      <div class="container">
-        <div class="pendings">
-          <div>{{indice + 1 + ")"}}</div>
-          <a routerLink="/detail/{{ pending.id }}">
-            <span>{{ pending.topic }} </span>
-          </a>
-          <span>{{ pending.dateSelected | date : "d MMMM, yyyy" }} </span>
-        </div>
-        <!-- <button class="button" type="submit" (click)="delete(pending)">
-          Eliminar
-        </button> -->
-      </div>
-    </li>
-  </ul>
+
+  <table mat-table [dataSource]="pendings" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let indice = index"> {{indice + 1 + ")"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pending">
+      <th mat-header-cell *matHeaderCellDef> Pendiente </th>
+      <td mat-cell *matCellDef="let element">
+        <a routerLink="/detail/{{ element.id }}">
+          {{element.topic}}
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last updated">
+      <th mat-header-cell *matHeaderCellDef> Ultima modificación </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateSelected | date : "d MMMM, yyyy" }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
 </div>
